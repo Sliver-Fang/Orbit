@@ -5,9 +5,7 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    base: "./", // Defines relative paths for portable deployment
-    plugins: [react(), tailwindcss()],
-    // ...
+    base: "./",
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
