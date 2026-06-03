@@ -1,0 +1,114 @@
+{
+  "entities": {
+    "Habit": {
+      "title": "Habit",
+      "description": "A recurring routine or goal created by the user.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique auto-generated habit ID" },
+        "name": { "type": "string", "description": "The name of the habit" },
+        "category": { "type": "string", "description": "The category of the habit (Wellness, Fitness, etc.)" },
+        "frequency": { "type": "string", "enum": ["daily", "weekly"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "completedDates": { "type": "array", "description": "Array of string YYYY-MM-DD dates of completion" },
+        "streak": { "type": "number" },
+        "userId": { "type": "string", "description": "The firebase UID of the owner" }
+      },
+      "required": ["id", "name", "category", "frequency", "completedDates", "userId"]
+    },
+    "DailyTask": {
+      "title": "DailyTask",
+      "description": "An individual checklist task scheduled for a specific date.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "isCompleted": { "type": "boolean" },
+        "assignedDate": { "type": "string", "description": "YYYY-MM-DD date" },
+        "completedAt": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "name", "isCompleted", "assignedDate", "userId"]
+    },
+    "AvoidItem": {
+      "title": "AvoidItem",
+      "description": "A customized boundary of items the user is training themselves not to do.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "reason": { "type": "string" },
+        "timesViolatedToday": { "type": "number" },
+        "avoidedToday": { "type": "boolean" },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "name", "timesViolatedToday", "avoidedToday", "userId"]
+    },
+    "SleepWakeLog": {
+      "title": "SleepWakeLog",
+      "description": "An off/on logger monitoring sleep and wake timings.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "date": { "type": "string" },
+        "wakeTime": { "type": "string" },
+        "sleepTime": { "type": "string" },
+        "durationHours": { "type": "number" },
+        "status": { "type": "string", "enum": ["active-awake", "active-sleeping", "completed"] },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "date", "status", "userId"]
+    },
+    "CustomQuote": {
+      "title": "CustomQuote",
+      "description": "Inspirational quotes customized or created by the user.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "text": { "type": "string" },
+        "author": { "type": "string" },
+        "category": { "type": "string" },
+        "userId": { "type": "string" },
+        "isCustom": { "type": "boolean" }
+      },
+      "required": ["id", "text", "author", "category", "userId"]
+    },
+    "UserPreference": {
+      "title": "UserPreference",
+      "description": "User preference configurations like theme palette selections.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "selectedPaletteId": { "type": "string" },
+        "isDark": { "type": "boolean" }
+      },
+      "required": ["userId", "selectedPaletteId", "isDark"]
+    }
+  },
+  "firestore": {
+    "users/{userId}/habits/{habitId}": {
+      "schema": "Habit",
+      "description": "User-specific habit metrics"
+    },
+    "users/{userId}/tasks/{taskId}": {
+      "schema": "DailyTask",
+      "description": "User-specific scheduled goals for today"
+    },
+    "users/{userId}/avoid/{avoidId}": {
+      "schema": "AvoidItem",
+      "description": "User-specific items of things NOT to do"
+    },
+    "users/{userId}/sleep_logs/{sleepLogId}": {
+      "schema": "SleepWakeLog",
+      "description": "Waking and sleep timing journals"
+    },
+    "users/{userId}/custom_quotes/{quoteId}": {
+      "schema": "CustomQuote",
+      "description": "User custom inspirational quotes"
+    },
+    "users/{userId}/preferences/settings": {
+      "schema": "UserPreference",
+      "description": "A single configuration document representing user settings"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Habit Tracker & Day Planner",
+  "description": "A minimalist, modern habit tracker and focus planner featuring customizable color palettes, wake-sleep timers, daily focus tools, things-not-to-do list, and an interactive daily progress chart.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
